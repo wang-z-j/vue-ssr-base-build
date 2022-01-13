@@ -6,6 +6,7 @@ const server = require('express')()
 const Vue = require('vue')
 const VueserverRenderer = require('vue-server-renderer')
 const fs = require("fs")
+const setupDevServer = require('./build/setup-dev-server')
 server.use('/dist', express.static('./dist'))
 const isProd = process.env.NODE_ENV === 'production'
 let renderer
@@ -23,7 +24,7 @@ if (isProd) {
 } else {
   // 开发环境
   // 重新打包构建（客户端+服务端） >>> 在生成renderer渲染器
-  onReady = setupDevServer(server,(serverBundle,template,clientManifest) {
+  onReady = setupDevServer(server,(serverBundle,template,clientManifest) => {
       renderer = VueserverRenderer.createBundleRenderer(serverBundle,{
       template,
       clientManifest
@@ -37,6 +38,7 @@ const render = (req,res) => {
   // bundle renderer 在调用renderToString时候
   // 它将自动执行 由bundle创建的应用程序实例 所导出的函数（传入上下文作为参数） 然后渲染它
   renderer.renderToString({
+    url: req.url,
     title: '小军vue-ssr',
     meta: `<meta name="description" content="hello world">`
   }, (err,html) => {
@@ -47,7 +49,7 @@ const render = (req,res) => {
     res.end(html)
   })
 }
-server.get('/',
+server.get('*',
  isProd 
   ? render
   : async (req,res) => {
