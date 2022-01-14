@@ -6,8 +6,11 @@
 
 <script>
 export default {
-name: 'home',
-  data () {
+  name: 'home',
+  metaInfo: {
+    title: '首页'
+  },
+  data() {
     return {
 
     }
@@ -22,5 +25,4 @@ name: 'home',
 </script>
 
 <style scoped>
-
 </style>

@@ -2,14 +2,15 @@
   <div id="app">
     <router-link to="/">home</router-link>
     <router-link to="/about">about</router-link>
+    <router-link to="/posts">posts</router-link>
     <router-view></router-view>
-    <h1>{{ message }}</h1>
+    <!-- <h1>{{ message }}</h1>
     <input
       v-model="message"
       type="text"
       name=""
       id=""
-    >
+    > -->
   </div>
 </template>
 <script>

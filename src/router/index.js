@@ -17,6 +17,11 @@ export const createRouter = () => {
         component: () => import('@/pages/About.vue')
       },
       {
+        name: 'posts',
+        path:'/posts',
+        component: () => import('@/pages/Posts.vue')
+      },
+      {
         name: 'error404',
         path:'*',
         component: () => import('@/pages/404.vue')
